@@ -23,7 +23,7 @@
         text-align: center;
         color: #eee;
       }
-      h1:hover{
+      h1:hover {
         color: #888;
       }
       footer {
@@ -71,6 +71,9 @@
       })();
 
     </script>
+    <script src="codemirror.js"></script>
+    <script src="vim.js"></script>
+    <link rel="stylesheet" href="codemirror.css">
   </head>
   <body>
     <header>
@@ -78,10 +81,14 @@
     </header>
     <textarea id="bigtextbox"></textarea>
     <footer>
-      &copy; 2012 Johnny Mukai | <a href="http://johnnymukai.com">johnnymukai.com</a>
-      Forked in gratitude from <a href="http://bigtextbox.com">bigtextbox.com</a> by Grant Hutchins | <a href="http://nertzy.com">nertzy.com</a>
+      &copy; 2012 Jeff Saracco | <a href="http://jeffsaracco.com">jeffsaracco.com</a>
+      Forked in gratitude from <a href="http://smalltextbox.com">smalltextbox.com</a> by Johnny Mukai <a href="http://johnnymukai.com">johnnymukai.com</a>
     </footer>
     <script type="text/javascript">
+      var editor = CodeMirror.fromTextArea(document.getElementById("bigtextbox"), {
+        keyMap: "vim",
+        showCursorWhenSelecting: true
+      });
       document.getElementById("bigtextbox").focus();
     </script>
   </body>
