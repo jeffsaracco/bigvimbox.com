@@ -197,10 +197,10 @@
     { keys: ['N'], type: 'motion', motion: 'findNext',
         motionArgs: { forward: false }},
     // Operator-Motion dual commands
-    { keys: ['x'], type: 'operatorMotion', operator: 'delete',
+    { keys: ['x'], type: 'operatorMotion', operator: 'deleteCharacter',
         motion: 'moveByCharacters', motionArgs: { forward: true },
         operatorMotionArgs: { visualLine: false }},
-    { keys: ['X'], type: 'operatorMotion', operator: 'delete',
+    { keys: ['X'], type: 'operatorMotion', operator: 'deleteCharacter',
         motion: 'moveByCharacters', motionArgs: { forward: false },
         operatorMotionArgs: { visualLine: true }},
     { keys: ['D'], type: 'operatorMotion', operator: 'delete',
@@ -1020,7 +1020,7 @@
         return null;
       },
       jumpToMark: function(cm, motionArgs, vim) {
-        var best = cm.getCursor(); 
+        var best = cm.getCursor();
         for (var i = 0; i < motionArgs.repeat; i++) {
           var cursor = best;
           for (var key in vim.marks) {
@@ -1039,7 +1039,7 @@
             }
 
             var equal = cursorEqual(cursor, best);
-            var between = (motionArgs.forward) ? 
+            var between = (motionArgs.forward) ?
               cusrorIsBetween(cursor, mark, best) :
               cusrorIsBetween(best, mark, cursor);
 
@@ -1267,12 +1267,25 @@
           // curEnd should be on the first character of the new line.
           cm.replaceRange('\n', curStart, curEnd);
         } else {
+          curEnd.ch++;
           cm.replaceRange('', curStart, curEnd);
         }
         cm.setCursor(curStart);
       },
       // delete is a javascript keyword.
       'delete': function(cm, operatorArgs, vim, curStart, curEnd) {
+        getVimGlobalState().registerController.pushText(
+            operatorArgs.registerName, 'delete', cm.getRange(curStart, curEnd),
+            operatorArgs.linewise);
+        curEnd.ch++;
+        cm.replaceRange('', curStart, curEnd);
+        if (operatorArgs.linewise) {
+          cm.setCursor(motions.moveToFirstNonWhiteSpaceCharacter(cm));
+        } else {
+          cm.setCursor(curStart);
+        }
+      },
+      'deleteCharacter': function(cm, operatorArgs, vim, curStart, curEnd) {
         getVimGlobalState().registerController.pushText(
             operatorArgs.registerName, 'delete', cm.getRange(curStart, curEnd),
             operatorArgs.linewise);
