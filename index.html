@@ -81,6 +81,7 @@
       var editor = ace.edit("bigtextbox");
       editor.renderer.setShowGutter(false);
       editor.setKeyboardHandler("ace/keyboard/vim");
+      editor.setShowPrintMargin(false);
       document.getElementById('bigtextbox').style.fontSize='16px';
       editor.focus();
     </script>
