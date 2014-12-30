@@ -45,17 +45,12 @@
         color: #88f;
       }
       #bigtextbox {
-        border: none;
         position: absolute;
         top: 30px;
         bottom: 20px;
-        margin: 0;
-        padding: 10px;
-        width: 80%;
-        text-align: left;
-        font-family: Helvetica;
-        font-size: 16px;
-        outline: none;
+        left: 0;
+        right: 0;
+        margin: 10px;
       }
     </style>
     <script type="text/javascript">
@@ -71,25 +66,22 @@
       })();
 
     </script>
-    <script src="codemirror.js"></script>
-    <script src="vim.js"></script>
-    <link rel="stylesheet" href="codemirror.css">
+    <script src="http://cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>
   </head>
   <body>
     <header>
       <h1>bigvimbox.com</h1>
     </header>
-    <textarea id="bigtextbox"></textarea>
+    <div id="bigtextbox"></div>
     <footer>
       &copy; 2012 Jeff Saracco | <a href="http://jeffsaracco.com">jeffsaracco.com</a>
       Forked in gratitude from <a href="http://smalltextbox.com">smalltextbox.com</a> by Johnny Mukai <a href="http://johnnymukai.com">johnnymukai.com</a>
     </footer>
     <script type="text/javascript">
-      var editor = CodeMirror.fromTextArea(document.getElementById("bigtextbox"), {
-        keyMap: "vim",
-        showCursorWhenSelecting: true,
-        lineWrapping: true
-      });
+      var editor = ace.edit("bigtextbox");
+      editor.renderer.setShowGutter(false);
+      editor.setKeyboardHandler("ace/keyboard/vim");
+      document.getElementById('bigtextbox').style.fontSize='16px';
       editor.focus();
     </script>
   </body>
