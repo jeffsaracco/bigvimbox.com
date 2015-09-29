@@ -85,7 +85,9 @@
       editor.setShowPrintMargin(false);
       editor.getSession().setMode("ace/mode/markdown");
       editor.getSession().setUseWrapMode(true);
-      editor.getSession().on('change', function(e) {
+
+      var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
+      VimApi.defineEx("write", "w", function(cm, input) {
         var value = editor.getValue();
         localStorage.setItem('bigvimbox', value);
       });
