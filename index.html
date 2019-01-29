@@ -66,8 +66,9 @@
       })();
 
     </script>
-    <script src="http://cdn.jsdelivr.net/ace/1.2.0/min/ace.js"></script>
-    <script src='https://cdn.jsdelivr.net/ace/1.2.0/min/keybinding-vim.js'></script>
+    <script src="js/ace.js"></script>
+    <script src='js/keybinding-vim.js'></script>
+    <script src="js/immortal-db.min.js"></script>
     <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-touch-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-touch-icon-72x72.png">
@@ -98,26 +99,6 @@
       &copy; 2012 Jeff Saracco | <a href="http://jeffsaracco.com">jeffsaracco.com</a>
       Forked in gratitude from <a href="http://smalltextbox.com">smalltextbox.com</a> by Johnny Mukai <a href="http://johnnymukai.com">johnnymukai.com</a>
     </footer>
-    <script type="text/javascript">
-      var editor = ace.edit("bigvimbox");
-      editor.renderer.setShowGutter(false);
-      editor.setKeyboardHandler("ace/keyboard/vim");
-      editor.setShowPrintMargin(false);
-      editor.getSession().setMode("ace/mode/markdown");
-      editor.getSession().setUseWrapMode(true);
-
-      var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
-      VimApi.defineEx("write", "w", function(cm, input) {
-        var value = editor.getValue();
-        localStorage.setItem('bigvimbox', value);
-      });
-
-      var value = localStorage.getItem('bigvimbox');
-      if(value) { editor.setValue(value); }
-
-      document.getElementById('bigvimbox').style.fontSize='16px';
-      editor.clearSelection();
-      editor.focus();
-    </script>
+    <script src="js/app.js"></script>
   </body>
 </html>
